@@ -1,6 +1,12 @@
-package chapter1
+package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"strings"
+)
 
 // PrintDuplicate : Used to find Duplicate from a Map
 func PrintDuplicate(counts map[string]int) string {
@@ -11,4 +17,33 @@ func PrintDuplicate(counts map[string]int) string {
 		}
 	}
 	return returnString
+}
+
+func main() {
+	counts := make(map[string]int)
+	files := os.Args[1:]
+
+	if len(files) == 0 {
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			if len(scanner.Text()) == 0 {
+				break
+			}
+			counts[scanner.Text()]++
+		}
+	} else {
+		for _, filename := range os.Args[1:] {
+			data, err := ioutil.ReadFile(filename)
+
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error in function: %v\n", err)
+			}
+
+			for _, line := range strings.Split(string(data), "\n") {
+				counts[line]++
+			}
+		}
+	}
+	fmt.Printf(PrintDuplicate(counts))
+
 }

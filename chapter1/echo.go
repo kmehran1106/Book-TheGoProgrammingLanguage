@@ -1,6 +1,8 @@
-package chapter1
+package main
 
 import (
+	"fmt"
+	"os"
 	"strings"
 )
 
@@ -20,4 +22,10 @@ func InefficientEcho(elements []string) string {
 		}
 	}
 	return s
+}
+
+func main() {
+	args := os.Args[1:]
+	fmt.Println(InefficientEcho(args))
+	fmt.Println(EfficientEcho(args))
 }

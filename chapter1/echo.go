@@ -1,9 +1,7 @@
 package chapter1
 
 import (
-	"fmt"
 	"strings"
-	
 )
 
 // EfficientEcho : X
